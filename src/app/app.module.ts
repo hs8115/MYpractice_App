@@ -6,14 +6,12 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { HarshitComponent } from './harshit/harshit.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HarshitComponent
-     
+    AppComponent
+   
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,96 @@
+<div class="container mt-5">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="text-primary fw-bold mb-0">User List</h3>
+
+  </div>
+
+  <!-- Search -->
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="🔍 Search anything..." [(ngModel)]="searchText"
+      (input)="applyCommonFilter()" />
+  </div>
+
+  <!-- Card Table -->
+  <div class="card shadow border-0 rounded-3">
+    <div class="card-body p-0">
+      <table class="table table-hover table-striped mb-0 text-center align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Device</th>
+            <th>Address</th>
+            <th>Action</th>
+          </tr>
+
+          <!-- Column Filters -->
+          <tr>
+            <th><input type="text" [(ngModel)]="filters.Id" (input)="applyColumnFilter()"
+                class="form-control form-control-sm" placeholder="Filter Id"></th>
+            <th><input type="text" [(ngModel)]="filters.email" (input)="applyColumnFilter()"
+                class="form-control form-control-sm" placeholder="Filter Email"></th>
+            <th><input type="text" [(ngModel)]="filters.name" (input)="applyColumnFilter()"
+                class="form-control form-control-sm" placeholder="Filter Name"></th>
+            <th><input type="text" [(ngModel)]="filters.device" (input)="applyColumnFilter()"
+                class="form-control form-control-sm" placeholder="Filter Device"></th>
+            <th><input type="text" [(ngModel)]="filters.address" (input)="applyColumnFilter()"
+                class="form-control form-control-sm" placeholder="Filter Address"></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let user of pagedUsers; let i = index">
+            <td>{{ user.userId }}</td>
+            <td>{{ user.useremail }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.userdevice }}</td>
+            <td>{{ user.useraddress }}</td>
+
+            <td>
+              <div class="btn-group d-flex justify-content-center gap-2">
+
+
+                <button (click)="goOnId(i)" mat-icon-button color="primary" aria-label="View">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+
+                <button (click)="editUser(i)" mat-icon-button color="primary" aria-label="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+
+                <button (click)="deleteUser(i)" mat-icon-button color="accent" aria-label="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button (click)="downloadPdf(user)" mat-icon-button color="warn" aria-label="Download PDF">
+                  <mat-icon>picture_as_pdf</mat-icon>
+                </button>
+
+
+
+
+
+
+
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="filteredUsers.length === 0">
+            <td colspan="6" class="text-center text-muted py-4">
+              No users found.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="card-footer bg-light text-center">
+      <mat-paginator [length]="filteredUsers.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="onPageChange($event)" aria-label="Select page"></mat-paginator>
+    </div>
+  </div>
+</div>
